@@ -1,52 +1,47 @@
-import React, { useEffect, useContext } from "react";
-import axios from "axios";
+import React, { useEffect } from "react";
+import { useMediaList } from "hooks/useMediaList";
 import PropTypes from "prop-types";
-import { BASE_URL } from "assets/data/consts";
-import { TokenContext } from "providers/TokenProvider";
+import ScrollableMediaList from "organisms/ScrollableMediaList/ScrollableMediaList";
+
 import {
   HomeWrapper,
   AppbarWrapper,
   SideNavWrapper,
   ScrollableListWrapper,
   FooterWrapper,
+  ListTitle,
 } from "./Home.styles";
 
-const URL = `${BASE_URL}/Media/GetMediaList`;
-
-const requestBody = {
-  PageSize: 15,
-  PageNumber: 1,
-  MediaListId: 7,
-  IncludeCategories: false,
-  IncludeMedia: false,
-  IncludeImages: true,
-};
-
 const Home = () => {
-  const { token } = useContext(TokenContext);
+  const [mediaList1, error1] = useMediaList(2);
+  const [mediaList2, error2] = useMediaList(3);
 
   useEffect(() => {
-    axios
-      .post(
-        URL,
-        { ...requestBody },
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      )
-      .then(({ data }) => console.log(data))
-      .catch((e) => console.error(e));
-  }, []);
+    if (mediaList2) {
+      console.log(mediaList2);
+    }
+  }, [mediaList2]);
 
   return (
     <HomeWrapper>
       <AppbarWrapper>Welcome to our Homepage!</AppbarWrapper>
       <SideNavWrapper>Sidebar</SideNavWrapper>
-      <ScrollableListWrapper>MediaList 1</ScrollableListWrapper>
-      <ScrollableListWrapper>MediaList 2</ScrollableListWrapper>
+      <ScrollableListWrapper>
+        <ListTitle>SELECTED FOR YOU</ListTitle>
+        {error1 ? (
+          "Sorry, we couldnt load your movie. Please try again later"
+        ) : (
+          <ScrollableMediaList entities={mediaList1?.Entities} />
+        )}
+      </ScrollableListWrapper>
+      <ScrollableListWrapper>
+        <ListTitle>TRENDING NOW</ListTitle>
+        {error2 ? (
+          "Sorry, we couldnt load your movie. Please try again later"
+        ) : (
+          <ScrollableMediaList entities={mediaList2?.Entities} />
+        )}
+      </ScrollableListWrapper>
       <FooterWrapper>Footer</FooterWrapper>
     </HomeWrapper>
   );

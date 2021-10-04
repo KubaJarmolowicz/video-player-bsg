@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import "assets/fonts/fonts.css";
 
 export const HomeWrapper = styled.div`
   display: grid;
@@ -28,6 +29,18 @@ export const ScrollableListWrapper = styled.section`
   grid-column: span 1;
   grid-row: span 1;
   border: 1px solid purple;
+  padding: ${({ theme }) => theme.padding.x1} ${({ theme }) => theme.padding.x2};
+
+  display: flex;
+  flex-direction: column;
+
+  overflow-x: hidden;
+`;
+
+export const ListTitle = styled.h2`
+  font-family: "Montserrat";
+  font-size: ${({ theme }) => theme.fontSize.l};
+  font-weight: 700;
 `;
 
 export const FooterWrapper = styled.footer`
