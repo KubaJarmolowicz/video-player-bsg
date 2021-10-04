@@ -4,7 +4,10 @@ import { ThemeProvider } from "styled-components";
 import { GlobalStyle } from "assets/styles/GlobalStyle";
 import { theme } from "assets/styles/theme";
 import TokenProvider from "providers/TokenProvider";
+
+import PrivateRoute from "molecules/PrivateRoute";
 import Splash from "views/Splash/Splash";
+import Home from "views/Home/Home";
 
 const Root = () => {
   return (
@@ -16,6 +19,9 @@ const Root = () => {
             <Route path="/" exact>
               <Splash />
             </Route>
+            <PrivateRoute path="/home">
+              <Home />
+            </PrivateRoute>
           </Switch>
         </TokenProvider>
       </ThemeProvider>

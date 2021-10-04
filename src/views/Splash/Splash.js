@@ -1,4 +1,5 @@
-import React, { useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import { Redirect } from "react-router";
 import PropTypes from "prop-types";
 import { SplashWrapper } from "./Splash.styles";
 import axios from "axios";
@@ -15,6 +16,7 @@ const requestBody = {
 };
 
 const Splash = () => {
+  const [redirect, setRedirect] = useState(null);
   const { setToken } = useContext(TokenContext);
 
   useEffect(() => {
@@ -26,18 +28,23 @@ const Splash = () => {
             AuthorizationToken: { Token },
           },
         }) => {
-          console.log("from splash -> token: ", Token);
+          // REDIRECT HERE ---------------------------------------->
           setToken(Token);
+          setRedirect(true);
         }
       )
       .catch((e) => console.log(e));
   }, []);
 
-  return (
-    <SplashWrapper>
-      <h2>Hello World</h2>
-    </SplashWrapper>
-  );
+  if (redirect) {
+    return <Redirect to="/home" />;
+  } else {
+    return (
+      <SplashWrapper>
+        <h2>Hello World</h2>
+      </SplashWrapper>
+    );
+  }
 };
 
 Splash.propTypes = {};
