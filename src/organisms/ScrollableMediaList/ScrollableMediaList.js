@@ -4,7 +4,7 @@ import { ItemsTrack } from "./ScrollableMediaList.styles";
 import MediaListItem from "molecules/MediaListItem/MediaListItem";
 
 const getEntityTitles = ({ Title, Id, Images }) => (
-  <MediaListItem key={Id} title={Title} images={Images} />
+  <MediaListItem key={Id} id={Id} title={Title} images={Images} />
 );
 
 const ScrollableMediaList = ({ entities = [] }) => {

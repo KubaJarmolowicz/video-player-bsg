@@ -16,11 +16,11 @@ const Home = () => {
   const [mediaList1, error1] = useMediaList(2);
   const [mediaList2, error2] = useMediaList(3);
 
-  useEffect(() => {
-    if (mediaList2) {
-      console.log(mediaList2);
-    }
-  }, [mediaList2]);
+  //   useEffect(() => {
+  //     if (mediaList2) {
+  //       console.log(mediaList2);
+  //     }
+  //   }, [mediaList2]);
 
   return (
     <HomeWrapper>
