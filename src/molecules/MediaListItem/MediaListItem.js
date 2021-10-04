@@ -1,9 +1,8 @@
 import React, { useEffect } from "react";
 import { usePlayInfo } from "hooks/usePlayInfo";
 import PropTypes from "prop-types";
-import { ImgWrapper, StyledItem } from "./MediaListItem.styles";
-import ReactPlayer from "react-player";
-import { PLACEHOLDER_CONTENT_URL } from "assets/data/consts";
+import { StyledItem, StyledMovieTitle } from "./MediaListItem.styles";
+import ResponsivePlayer from "organisms/ResponsivePlayer/ResponsivePlayer";
 
 const getImageSRC = (images) => {
   if (images.length === 0) return "/placeholder.webp";
@@ -27,20 +26,12 @@ const MediaListItem = ({ id, title, images = [] }) => {
 
   return (
     <StyledItem>
-      {title}
+      <StyledMovieTitle> {title}</StyledMovieTitle>
+
       {error ? (
         <div>"Sorry, we couldnt load your movie. Please try again later"</div>
       ) : (
-        <ReactPlayer
-          light={getImageSRC(images)}
-          url={contentURL ?? PLACEHOLDER_CONTENT_URL}
-          controls
-          style={{
-            display: "block",
-            maxWidth: "100%",
-            aspectRatio: "16 / 9",
-          }}
-        />
+        <ResponsivePlayer light={getImageSRC(images)} url={contentURL} />
       )}
     </StyledItem>
   );

@@ -41,7 +41,7 @@ const Splash = () => {
   } else {
     return (
       <SplashWrapper>
-        <h2>Hello World</h2>
+        <h2>BETTER VOD PLAYER</h2>
       </SplashWrapper>
     );
   }

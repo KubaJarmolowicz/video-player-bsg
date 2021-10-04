@@ -2,6 +2,7 @@ import { BASE_URL } from "assets/data/consts";
 import axios from "axios";
 import { TokenContext } from "providers/TokenProvider";
 import { useState, useEffect, useContext } from "react";
+import { PLACEHOLDER_CONTENT_URL } from "assets/data/consts";
 
 const URL = `${BASE_URL}/Media/GetMediaPlayInfo`;
 
@@ -30,7 +31,7 @@ export const usePlayInfo = ({ mediaId, streamType = "TRIAL" }) => {
       )
       .then(({ data }) => {
         console.log(data);
-        setContentURL(data.ContentUrl || null);
+        setContentURL(data.ContentUrl ?? PLACEHOLDER_CONTENT_URL);
       })
       .catch((e) => setError(e));
   }, []);
