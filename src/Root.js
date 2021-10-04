@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { ThemeProvider } from "styled-components";
 import { GlobalStyle } from "assets/styles/GlobalStyle";
 import { theme } from "assets/styles/theme";
+import TokenProvider from "providers/TokenProvider";
 import Splash from "views/Splash/Splash";
 
 const Root = () => {
@@ -10,7 +11,13 @@ const Root = () => {
     <Router>
       <ThemeProvider theme={theme}>
         <GlobalStyle />
-        <Splash />
+        <TokenProvider>
+          <Switch>
+            <Route path="/" exact>
+              <Splash />
+            </Route>
+          </Switch>
+        </TokenProvider>
       </ThemeProvider>
     </Router>
   );
