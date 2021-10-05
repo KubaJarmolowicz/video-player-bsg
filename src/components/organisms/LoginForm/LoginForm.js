@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import FormField from "components/molecules/FormField/FormField";
 import { Button } from "components/atoms/Button/Button";
 
-const LoginForm = ({ handleLogIn }) => {
+const LoginForm = ({ handleLogIn, shouldDisableSubmit }) => {
   const {
     register,
     handleSubmit,
@@ -38,7 +38,9 @@ const LoginForm = ({ handleLogIn }) => {
       />
       {errors.password && <span>Password is required</span>}
 
-      <Button type="submit">Log In</Button>
+      <Button type="submit" disabled={shouldDisableSubmit}>
+        Log In
+      </Button>
     </form>
   );
 };

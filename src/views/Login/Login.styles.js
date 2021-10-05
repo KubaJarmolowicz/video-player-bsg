@@ -7,6 +7,11 @@ export const LoginViewWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
+
+  & > * + * {
+    margin-top: 2rem;
+  }
 `;
 
 export const FormWrapper = styled.div`
@@ -30,6 +35,8 @@ export const GuestLoginBtn = styled(NavLink)`
   border-radius: 2px;
 
   font-size: ${({ theme }) => theme.fontSize.m};
+
+  color: ${({ theme }) => theme.colors.white};
 
   &:active,
   &:visited {
