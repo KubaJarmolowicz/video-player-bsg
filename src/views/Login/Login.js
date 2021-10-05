@@ -5,26 +5,18 @@ import { TokenContext } from "providers/TokenProvider";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { UserContext } from "providers/UserProvider";
+import LoginForm from "organisms/LoginForm/LoginForm";
+import { LoginViewWrapper, FormWrapper, GuestLoginBtn } from "./Login.styles";
 
 const URL = `${BASE_URL}/Authorization/SignIn`;
 
 const Login = () => {
-  const [usernameValue, setUsernameValue] = useState("");
-  const [passwordValue, setPasswordValue] = useState("");
-
   const [redirect, setRedirect] = useState(null);
 
   const { setToken } = useContext(TokenContext);
   const { setIsRegistered } = useContext(UserContext);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    const data = { username: usernameValue, password: passwordValue };
-
-    setUsernameValue("");
-    setPasswordValue("");
-
+  const handleLogIn = (data) => {
     const requestBody = {
       Username: data.username,
       Password: data.password,
@@ -33,7 +25,6 @@ const Login = () => {
         PlatformCode: "WEB",
       },
     };
-
     axios
       .post(URL, { requestBody })
       .then(
@@ -54,26 +45,12 @@ const Login = () => {
     return <Redirect to="/home" />;
   } else {
     return (
-      <div>
-        <div>
-          <h2>Registered users</h2>
-          <form onSubmit={handleSubmit}>
-            <input
-              type="text"
-              value={usernameValue}
-              onChange={(e) => setUsernameValue(e.target.value)}
-            />
-            <input
-              type="password"
-              value={passwordValue}
-              onChange={(e) => setPasswordValue(e.target.value)}
-            />
-
-            <button>Log in</button>
-          </form>
-        </div>
-        <Link to="/splash">Log In as Guest</Link>
-      </div>
+      <LoginViewWrapper>
+        <FormWrapper>
+          <LoginForm handleLogIn={handleLogIn} />
+          <GuestLoginBtn to="/splash">Log In as Guest</GuestLoginBtn>
+        </FormWrapper>
+      </LoginViewWrapper>
     );
   }
 };
