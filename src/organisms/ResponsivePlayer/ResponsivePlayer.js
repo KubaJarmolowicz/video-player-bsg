@@ -16,7 +16,6 @@ const ResponsivePlayer = ({ light, url }) => {
           position: "absolute",
           top: 0,
           left: 0,
-          border: "1px solid red",
         }}
       />
     </FixedRatioWrapper>

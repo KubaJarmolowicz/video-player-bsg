@@ -2,7 +2,9 @@ import { BASE_URL } from "assets/data/consts";
 import axios from "axios";
 import { TokenContext } from "providers/TokenProvider";
 import { useState, useEffect, useContext } from "react";
+import { useStateMachine } from "./useStateMachine";
 import { PLACEHOLDER_CONTENT_URL } from "assets/data/consts";
+import { actions } from "assets/data/consts";
 
 const URL = `${BASE_URL}/Media/GetMediaPlayInfo`;
 
@@ -13,11 +15,13 @@ export const usePlayInfo = ({ mediaId, streamType = "TRIAL" }) => {
   };
 
   const { token } = useContext(TokenContext);
+  const { updateState, compareState } = useStateMachine();
 
-  const [error, setError] = useState(null);
+  const [errorInfo, setErrorInfo] = useState(null);
   const [contentURL, setContentURL] = useState(null);
 
   useEffect(() => {
+    updateState(actions.SET_LOADING);
     axios
       .post(
         URL,
@@ -30,11 +34,14 @@ export const usePlayInfo = ({ mediaId, streamType = "TRIAL" }) => {
         }
       )
       .then(({ data }) => {
-        console.log(data);
+        updateState(actions.SET_SUCCESS);
         setContentURL(data.ContentUrl ?? PLACEHOLDER_CONTENT_URL);
       })
-      .catch((e) => setError(e));
+      .catch((e) => {
+        updateState(actions.SET_ERROR);
+        setErrorInfo(e);
+      });
   }, []);
 
-  return { error, contentURL };
+  return { errorInfo, contentURL, compareState };
 };
