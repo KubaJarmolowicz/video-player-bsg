@@ -4,6 +4,7 @@ export const GlobalStyle = createGlobalStyle`
 
 html{
     box-sizing: border-box;
+    color: ${({ theme }) => theme.colors.white}
 }
 
 *,*::before, *::after{
@@ -14,6 +15,7 @@ html{
 body{
     font-family: 'Montserrat', sans-serif;
     margin: 0;
+    background-color: ${({ theme }) => theme.colors.darkGrey};
 }
 
 a, button {

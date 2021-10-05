@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Redirect } from "react-router";
-import PropTypes from "prop-types";
 import { SplashWrapper } from "./Splash.styles";
 import axios from "axios";
 import { BASE_URL } from "assets/data/consts";
@@ -29,7 +28,6 @@ const Splash = () => {
             AuthorizationToken: { Token },
           },
         }) => {
-          // REDIRECT HERE ---------------------------------------->
           setToken(Token);
           setRedirect(true);
         }
@@ -48,7 +46,5 @@ const Splash = () => {
     );
   }
 };
-
-Splash.propTypes = {};
 
 export default Splash;

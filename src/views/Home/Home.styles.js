@@ -7,8 +7,6 @@ export const HomeWrapper = styled.div`
   display: grid;
   grid-template-columns: 10vw 1fr;
   grid-template-rows: 15vh 1fr 1fr 10vh;
-
-  background-color: ${({ theme }) => theme.colors.darkPurple};
 `;
 
 export const AppbarWrapper = styled.header`

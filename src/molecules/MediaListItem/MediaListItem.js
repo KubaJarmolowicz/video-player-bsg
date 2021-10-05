@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useContext } from "react";
 import { usePlayInfo } from "hooks/usePlayInfo";
 import PropTypes from "prop-types";
 import { StyledItem, StyledMovieTitle } from "./MediaListItem.styles";
@@ -6,6 +6,7 @@ import ResponsivePlayer from "organisms/ResponsivePlayer/ResponsivePlayer";
 import { states } from "assets/data/consts";
 import Loader from "atoms/Loader/Loader";
 import { LoaderCenteringContainer } from "atoms/Loader/Loader.styles";
+import { UserContext } from "providers/UserProvider";
 
 const getImageSRC = (images) => {
   if (images.length === 0) return "/placeholder.webp";
@@ -18,14 +19,16 @@ const getImageSRC = (images) => {
 };
 
 const MediaListItem = ({ id, title, images = [] }) => {
+  const { isRegistered } = useContext(UserContext);
+
   const { errorInfo, contentURL, compareState } = usePlayInfo({
     mediaId: id,
-    streamType: "TRIAL",
+    streamType: isRegistered ? "MAIN" : "TRIAL",
   });
 
-  // useEffect(() => {
-  //   if (contentURL) console.log(contentURL);
-  // }, [contentURL]);
+  useEffect(() => {
+    console.log("isRegistered from MediaListItem: ", isRegistered);
+  }, []);
 
   return (
     <StyledItem>
