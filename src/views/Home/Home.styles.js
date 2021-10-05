@@ -10,7 +10,7 @@ export const HomeWrapper = styled.div`
 `;
 
 export const AppbarWrapper = styled.header`
-  border: 1px solid blue;
+  border-bottom: 1px solid ${({ theme }) => theme.colors.white};
 
   grid-column: span 2;
 
@@ -23,7 +23,7 @@ export const AppbarWrapper = styled.header`
 `;
 
 export const SideNavWrapper = styled.nav`
-  border: 1px solid green;
+  border-right: 1px solid ${({ theme }) => theme.colors.white};
 
   grid-column: span 1;
   grid-row: span 3;
@@ -37,7 +37,7 @@ export const SideNavWrapper = styled.nav`
 `;
 
 export const ScrollableListWrapper = styled.section`
-  border: 1px solid purple;
+  border-bottom: 1px solid ${({ theme }) => theme.colors.white};
 
   grid-column: span 1;
   grid-row: span 1;
@@ -57,8 +57,6 @@ export const ListTitle = styled.h2`
 `;
 
 export const FooterWrapper = styled.footer`
-  border: 1px solid orange;
-
   grid-column: span 1;
   grid-row: span 1;
 

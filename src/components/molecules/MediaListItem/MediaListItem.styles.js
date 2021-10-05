@@ -6,7 +6,6 @@ export const StyledItem = styled.li`
 
 export const StyledMovieTitle = styled.h3`
   font-size: ${({ theme }) => theme.fontSize.l};
-  border: 1px solid green;
 
   white-space: nowrap;
   overflow: hidden;

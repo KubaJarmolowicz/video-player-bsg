@@ -2,10 +2,10 @@ import React, { useEffect, useContext } from "react";
 import { usePlayInfo } from "hooks/usePlayInfo";
 import PropTypes from "prop-types";
 import { StyledItem, StyledMovieTitle } from "./MediaListItem.styles";
-import ResponsivePlayer from "organisms/ResponsivePlayer/ResponsivePlayer";
+import ResponsivePlayer from "components/organisms/ResponsivePlayer/ResponsivePlayer";
 import { states } from "assets/data/consts";
-import Loader from "atoms/Loader/Loader";
-import { LoaderCenteringContainer } from "atoms/Loader/Loader.styles";
+import Loader from "components/atoms/Loader/Loader";
+import { LoaderCenteringContainer } from "components/atoms/Loader/Loader.styles";
 import { UserContext } from "providers/UserProvider";
 
 const getImageSRC = (images) => {

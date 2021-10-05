@@ -1,5 +1,7 @@
 import React from "react";
 import { useForm } from "react-hook-form";
+import FormField from "components/molecules/FormField/FormField";
+import { Button } from "components/atoms/Button/Button";
 
 const LoginForm = ({ handleLogIn }) => {
   const {
@@ -9,20 +11,34 @@ const LoginForm = ({ handleLogIn }) => {
   } = useForm();
 
   return (
-    <form onSubmit={handleSubmit(handleLogIn)}>
-      <input
+    <form
+      onSubmit={handleSubmit(handleLogIn)}
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        flexDirection: "column",
+      }}
+    >
+      <FormField
+        label="username"
+        name="username"
+        id="username"
         placeholder="Username"
         {...register("username", { required: true })}
       />
       {errors.username && <span>Username is required</span>}
-      <input
+      <FormField
+        label="password"
+        name="password"
+        id="password"
         placeholder="Password"
         type="password"
         {...register("password", { required: true })}
       />
       {errors.password && <span>Password is required</span>}
 
-      <button type="submit">Log In</button>
+      <Button type="submit">Log In</Button>
     </form>
   );
 };

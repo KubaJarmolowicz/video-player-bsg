@@ -14,17 +14,25 @@ export const FormWrapper = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: space-evenly;
+  border: 1px solid ${({ theme }) => theme.colors.white};
+  min-height: 30vh;
+  padding: ${({ theme }) => theme.padding.x1};
 `;
 
 export const GuestLoginBtn = styled(NavLink)`
   display: inline-block;
+
   text-align: center;
+
   padding: 5px 10px;
-  border: 1px solid black;
+
+  border: 1px solid ${({ theme }) => theme.colors.white};
   border-radius: 2px;
+
+  font-size: ${({ theme }) => theme.fontSize.m};
 
   &:active,
   &:visited {
-    color: initial;
+    color: ${({ theme }) => theme.colors.white};
   }
 `;

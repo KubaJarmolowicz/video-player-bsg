@@ -3,9 +3,8 @@ import { Redirect } from "react-router";
 import { BASE_URL } from "assets/data/consts";
 import { TokenContext } from "providers/TokenProvider";
 import axios from "axios";
-import { Link } from "react-router-dom";
 import { UserContext } from "providers/UserProvider";
-import LoginForm from "organisms/LoginForm/LoginForm";
+import LoginForm from "components/organisms/LoginForm/LoginForm";
 import { LoginViewWrapper, FormWrapper, GuestLoginBtn } from "./Login.styles";
 
 const URL = `${BASE_URL}/Authorization/SignIn`;
@@ -25,6 +24,7 @@ const Login = () => {
         PlatformCode: "WEB",
       },
     };
+
     axios
       .post(URL, { requestBody })
       .then(

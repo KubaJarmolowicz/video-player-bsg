@@ -4,7 +4,7 @@ import { SplashWrapper } from "./Splash.styles";
 import axios from "axios";
 import { BASE_URL } from "assets/data/consts";
 import { TokenContext } from "providers/TokenProvider";
-import Loader from "atoms/Loader/Loader";
+import Loader from "components/atoms/Loader/Loader";
 
 const URL = `${BASE_URL}/Authorization/SignIn`;
 

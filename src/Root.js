@@ -6,7 +6,7 @@ import { theme } from "assets/styles/theme";
 import TokenProvider from "providers/TokenProvider";
 import UserProvider from "providers/UserProvider";
 
-import PrivateRoute from "molecules/PrivateRoute";
+import PrivateRoute from "components/molecules/PrivateRoute";
 import Splash from "views/Splash/Splash";
 import Home from "views/Home/Home";
 import Login from "views/Login/Login";

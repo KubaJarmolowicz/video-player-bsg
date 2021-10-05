@@ -1,6 +1,6 @@
 import React from "react";
 import { useMediaList } from "hooks/useMediaList";
-import ScrollableMediaList from "organisms/ScrollableMediaList/ScrollableMediaList";
+import ScrollableMediaList from "components/organisms/ScrollableMediaList/ScrollableMediaList";
 
 import {
   HomeWrapper,
