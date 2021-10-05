@@ -3,10 +3,11 @@ import PropTypes from "prop-types";
 import ReactPlayer from "react-player";
 import { FixedRatioWrapper } from "./ResponsivePlayer.styles";
 
-const ResponsivePlayer = ({ light, url }) => {
+const ResponsivePlayer = ({ light, url, playing }) => {
   return (
     <FixedRatioWrapper>
       <ReactPlayer
+        playing
         light={light}
         url={url}
         controls

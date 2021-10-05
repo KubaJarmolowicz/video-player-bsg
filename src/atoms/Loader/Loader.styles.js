@@ -96,3 +96,10 @@ export const StyledLoader = styled.div`
     left: 62px;
   }
 `;
+
+export const LoaderCenteringContainer = styled.div`
+  height: 225px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;

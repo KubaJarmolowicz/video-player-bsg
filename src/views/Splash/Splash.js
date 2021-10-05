@@ -5,6 +5,7 @@ import { SplashWrapper } from "./Splash.styles";
 import axios from "axios";
 import { BASE_URL } from "assets/data/consts";
 import { TokenContext } from "providers/TokenProvider";
+import Loader from "atoms/Loader/Loader";
 
 const URL = `${BASE_URL}/Authorization/SignIn`;
 
@@ -42,6 +43,7 @@ const Splash = () => {
     return (
       <SplashWrapper>
         <h2>BETTER VOD PLAYER</h2>
+        <Loader />
       </SplashWrapper>
     );
   }

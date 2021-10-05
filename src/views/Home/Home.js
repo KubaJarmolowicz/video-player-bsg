@@ -1,6 +1,5 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useMediaList } from "hooks/useMediaList";
-import PropTypes from "prop-types";
 import ScrollableMediaList from "organisms/ScrollableMediaList/ScrollableMediaList";
 
 import {
@@ -40,7 +39,4 @@ const Home = () => {
     </HomeWrapper>
   );
 };
-
-Home.propTypes = {};
-
 export default Home;
