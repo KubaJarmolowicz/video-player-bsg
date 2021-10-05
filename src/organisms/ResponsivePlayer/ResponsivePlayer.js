@@ -10,12 +10,13 @@ const ResponsivePlayer = ({ light, url }) => {
         light={light}
         url={url}
         controls
-        width="95%"
-        height="95%"
+        width="100%"
+        height="100%"
         style={{
           position: "absolute",
           top: 0,
           left: 0,
+          border: "1px solid red",
         }}
       />
     </FixedRatioWrapper>
