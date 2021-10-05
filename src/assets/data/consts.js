@@ -37,3 +37,10 @@ export const actions = {
   SET_SUCCESS: "SET_SUCCESS",
   SET_IDLE: "SET_IDLE",
 };
+
+export const errorMessages = {
+  403: "You need to have a valid subscription to be able to stream this video.",
+  401: "You need to have a valid subscription to be able to stream this video.",
+  list: "Sorry, we couldnt load your list. Please try again later.",
+  default: "Something went wrong. Please try again later.",
+};

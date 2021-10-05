@@ -1,4 +1,6 @@
 import { useState, useEffect, useContext } from "react";
+import { useStateMachine } from "./useStateMachine";
+import { actions } from "assets/data/consts";
 import axios from "axios";
 import { TokenContext } from "providers/TokenProvider";
 import { BASE_URL } from "assets/data/consts";
@@ -7,8 +9,9 @@ const URL = `${BASE_URL}/Media/GetMediaList`;
 
 export const useMediaList = (MediaListId = 3) => {
   const { token } = useContext(TokenContext);
+  const { updateState, compareState } = useStateMachine();
 
-  const [error, setError] = useState(null);
+  const [errorInfo, setErrorInfo] = useState(null);
   const [mediaList, setMediaList] = useState(null);
 
   const requestBody = {
@@ -21,6 +24,7 @@ export const useMediaList = (MediaListId = 3) => {
   };
 
   useEffect(() => {
+    updateState(actions.SET_LOADING);
     axios
       .post(
         URL,
@@ -32,9 +36,15 @@ export const useMediaList = (MediaListId = 3) => {
           },
         }
       )
-      .then(({ data }) => setMediaList(data))
-      .catch((e) => setError(e));
+      .then(({ data }) => {
+        setMediaList(data);
+        updateState(actions.SET_SUCCESS);
+      })
+      .catch((e) => {
+        setErrorInfo(e.response.status);
+        updateState(actions.SET_ERROR);
+      });
   }, []);
 
-  return [mediaList, error];
+  return [mediaList, errorInfo, compareState];
 };

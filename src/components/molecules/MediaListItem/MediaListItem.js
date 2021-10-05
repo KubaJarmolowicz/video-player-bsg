@@ -1,12 +1,12 @@
-import React, { useEffect, useContext } from "react";
+import React, { useContext } from "react";
 import { usePlayInfo } from "hooks/usePlayInfo";
-import PropTypes from "prop-types";
 import { StyledItem, StyledMovieTitle } from "./MediaListItem.styles";
 import ResponsivePlayer from "components/organisms/ResponsivePlayer/ResponsivePlayer";
 import { states } from "assets/data/consts";
 import Loader from "components/atoms/Loader/Loader";
 import { LoaderCenteringContainer } from "components/atoms/Loader/Loader.styles";
 import { UserContext } from "providers/UserProvider";
+import Error from "components/molecules/Error/Error";
 
 const getImageSRC = (images) => {
   if (images.length === 0) return "/placeholder.webp";
@@ -26,10 +26,6 @@ const MediaListItem = ({ id, title, images = [] }) => {
     streamType: isRegistered ? "MAIN" : "TRIAL",
   });
 
-  useEffect(() => {
-    console.log("isRegistered from MediaListItem: ", isRegistered);
-  }, []);
-
   return (
     <StyledItem>
       <StyledMovieTitle>{title}</StyledMovieTitle>
@@ -45,13 +41,11 @@ const MediaListItem = ({ id, title, images = [] }) => {
           url={contentURL}
         />
       )}
-      {compareState(states.error) && (
-        <div>"Sorry, we couldnt load your movie. Please try again later"</div>
+      {compareState(states.error) && errorInfo && (
+        <Error messageType={errorInfo.response.status} />
       )}
     </StyledItem>
   );
 };
-
-MediaListItem.propTypes = {};
 
 export default MediaListItem;
