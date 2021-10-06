@@ -3,13 +3,13 @@ import { useStateMachine } from "hooks/useStateMachine";
 import { Redirect } from "react-router";
 import { SplashWrapper } from "./Splash.styles";
 import axios from "axios";
-import { BASE_URL } from "assets/data/consts";
 import { TokenContext } from "providers/TokenProvider";
 import Loader from "components/atoms/Loader/Loader";
-import { states, actions } from "assets/data/consts";
+import { states, actions } from "assets/data/stateManagement";
 import Error from "components/molecules/Error/Error";
+import { BASE_URL, endpoints } from "assets/data/api";
 
-const URL = `${BASE_URL}/Authorization/SignIn`;
+const URL = `${BASE_URL}${endpoints.authorization}`;
 
 const requestBody = {
   Device: {

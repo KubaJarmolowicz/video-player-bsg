@@ -1,16 +1,16 @@
 import React, { useContext, useState } from "react";
 import { useStateMachine } from "hooks/useStateMachine";
 import { Redirect } from "react-router";
-import { BASE_URL } from "assets/data/consts";
 import { TokenContext } from "providers/TokenProvider";
 import axios from "axios";
 import { UserContext } from "providers/UserProvider";
 import LoginForm from "components/organisms/LoginForm/LoginForm";
 import { LoginViewWrapper, FormWrapper, GuestLoginBtn } from "./Login.styles";
-import { states, actions } from "assets/data/consts";
+import { states, actions } from "assets/data/stateManagement";
 import Error from "components/molecules/Error/Error";
+import { BASE_URL, endpoints } from "assets/data/api";
 
-const URL = `${BASE_URL}/Authorization/SignIn`;
+const URL = `${BASE_URL}${endpoints.authorization}`;
 
 const Login = () => {
   const [redirect, setRedirect] = useState(null);
@@ -57,6 +57,7 @@ const Login = () => {
     return (
       <LoginViewWrapper>
         <FormWrapper>
+          <h2>Better Video Player</h2>
           <LoginForm
             handleLogIn={handleLogIn}
             shouldDisableSubmit={compareState(states.loading)}

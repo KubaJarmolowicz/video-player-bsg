@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { states, transitions } from "assets/data/consts";
+import { states, transitions } from "assets/data/stateManagement";
 
 export const useStateMachine = () => {
   const [currentState, setCurrentState] = useState(states.idle);

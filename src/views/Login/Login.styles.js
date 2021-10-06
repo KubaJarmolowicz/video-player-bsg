@@ -19,9 +19,14 @@ export const FormWrapper = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: space-evenly;
-  border: 1px solid ${({ theme }) => theme.colors.white};
+
   min-height: 30vh;
+
   padding: ${({ theme }) => theme.padding.x1};
+
+  & > * + * {
+    margin-top: 1rem;
+  }
 `;
 
 export const GuestLoginBtn = styled(NavLink)`
@@ -31,15 +36,15 @@ export const GuestLoginBtn = styled(NavLink)`
 
   padding: 5px 10px;
 
-  border: 1px solid ${({ theme }) => theme.colors.white};
+  border: 1px solid ${({ theme }) => theme.colors.darkGrey};
   border-radius: 2px;
 
   font-size: ${({ theme }) => theme.fontSize.m};
 
-  color: ${({ theme }) => theme.colors.white};
+  color: ${({ theme }) => theme.colors.darkGrey};
 
   &:active,
   &:visited {
-    color: ${({ theme }) => theme.colors.white};
+    color: ${({ theme }) => theme.colors.darkGrey};
   }
 `;

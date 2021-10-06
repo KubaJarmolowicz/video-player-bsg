@@ -1,11 +1,11 @@
 import { useState, useEffect, useContext } from "react";
 import { useStateMachine } from "./useStateMachine";
-import { actions } from "assets/data/consts";
+import { actions } from "assets/data/stateManagement";
 import axios from "axios";
 import { TokenContext } from "providers/TokenProvider";
-import { BASE_URL } from "assets/data/consts";
+import { BASE_URL, endpoints } from "assets/data/api";
 
-const URL = `${BASE_URL}/Media/GetMediaList`;
+const URL = `${BASE_URL}${endpoints.mediaList}`;
 
 export const useMediaList = (MediaListId = 3) => {
   const { token } = useContext(TokenContext);

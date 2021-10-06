@@ -38,7 +38,7 @@ const LoginForm = ({ handleLogIn, shouldDisableSubmit }) => {
       />
       {errors.password && <span>Password is required</span>}
 
-      <Button type="submit" disabled={shouldDisableSubmit}>
+      <Button type="submit" disabled={shouldDisableSubmit} isBig>
         Log In
       </Button>
     </form>

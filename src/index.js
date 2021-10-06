@@ -1,6 +1,7 @@
 import React from "react";
+import "assets/fonts/fonts.css";
 import ReactDOM from "react-dom";
-import Root from "./Root";
+import Root from "./views/Root";
 
 ReactDOM.render(
   <React.StrictMode>

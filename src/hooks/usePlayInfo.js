@@ -1,12 +1,11 @@
-import { BASE_URL } from "assets/data/consts";
 import axios from "axios";
 import { TokenContext } from "providers/TokenProvider";
 import { useState, useEffect, useContext } from "react";
 import { useStateMachine } from "./useStateMachine";
-import { PLACEHOLDER_CONTENT_URL } from "assets/data/consts";
-import { actions } from "assets/data/consts";
+import { actions } from "assets/data/stateManagement";
+import { BASE_URL, endpoints, PLACEHOLDER_CONTENT_URL } from "assets/data/api";
 
-const URL = `${BASE_URL}/Media/GetMediaPlayInfo`;
+const URL = `${BASE_URL}${endpoints.playInfo}`;
 
 export const usePlayInfo = ({ mediaId, streamType = "TRIAL" }) => {
   const requestBody = {

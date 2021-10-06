@@ -19,7 +19,7 @@ export const StyledLoader = styled.div`
     position: absolute;
     width: 6px;
     height: 6px;
-    background: #fff;
+    background: ${({ theme }) => theme.colors.darkGrey};
     border-radius: 50%;
     animation: ${loderAnimation} 1.2s linear infinite;
   }

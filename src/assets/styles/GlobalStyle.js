@@ -4,7 +4,7 @@ export const GlobalStyle = createGlobalStyle`
 
 html{
     box-sizing: border-box;
-    color: ${({ theme }) => theme.colors.white}
+    color: ${({ theme }) => theme.colors.darkGrey}
 }
 
 *::-webkit-scrollbar {
@@ -33,7 +33,7 @@ html{
 body{
     font-family: 'Montserrat', sans-serif;
     margin: 0;
-    background-color: ${({ theme }) => theme.colors.darkGrey};
+    background-color: ${({ theme }) => theme.colors.white};
 }
 
 a, button {

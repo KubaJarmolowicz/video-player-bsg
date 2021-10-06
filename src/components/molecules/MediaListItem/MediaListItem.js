@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { usePlayInfo } from "hooks/usePlayInfo";
 import { StyledItem, StyledMovieTitle } from "./MediaListItem.styles";
 import ResponsivePlayer from "components/organisms/ResponsivePlayer/ResponsivePlayer";
-import { states } from "assets/data/consts";
+import { states } from "assets/data/stateManagement";
 import Loader from "components/atoms/Loader/Loader";
 import { LoaderCenteringContainer } from "components/atoms/Loader/Loader.styles";
 import { UserContext } from "providers/UserProvider";
@@ -35,11 +35,7 @@ const MediaListItem = ({ id, title, images = [] }) => {
         </LoaderCenteringContainer>
       )}
       {compareState(states.success) && (
-        <ResponsivePlayer
-          playing
-          light={getImageSRC(images)}
-          url={contentURL}
-        />
+        <ResponsivePlayer light={getImageSRC(images)} url={contentURL} />
       )}
       {compareState(states.error) && errorInfo && (
         <Error messageType={errorInfo.response.status} />

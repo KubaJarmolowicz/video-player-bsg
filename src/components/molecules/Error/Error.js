@@ -1,6 +1,6 @@
 import React from "react";
 import { Wrapper } from "./Error.styles";
-import { errorMessages } from "assets/data/consts";
+import { errorMessages } from "assets/data/errorMessages";
 
 const Error = ({ messageType = "default" }) => {
   return (

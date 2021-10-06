@@ -11,7 +11,7 @@ import {
   FooterWrapper,
   ListTitle,
 } from "./Home.styles";
-import { states } from "assets/data/consts";
+import { states } from "assets/data/stateManagement";
 import { useContext } from "react/cjs/react.development";
 import { UserContext } from "providers/UserProvider";
 
