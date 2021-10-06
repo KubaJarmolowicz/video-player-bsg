@@ -17,7 +17,7 @@ const Login = () => {
   const { compareState, updateState } = useStateMachine();
 
   const { setToken } = useContext(TokenContext);
-  const { setIsRegistered } = useContext(UserContext);
+  const { setIsRegistered, setFullname } = useContext(UserContext);
 
   const handleLogIn = (data) => {
     const requestBody = {
@@ -31,14 +31,16 @@ const Login = () => {
 
     updateState(actions.SET_LOADING);
     axios
-      .post(URL, { requestBody })
+      .post(URL, { ...requestBody })
       .then(
         ({
           data: {
             AuthorizationToken: { Token },
+            User: { FullName },
           },
         }) => {
           setToken(Token);
+          setFullname(FullName);
           setIsRegistered(true);
           setRedirect(true);
         }

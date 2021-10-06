@@ -12,11 +12,15 @@ import {
   ListTitle,
 } from "./Home.styles";
 import { states } from "assets/data/consts";
+import { useContext } from "react/cjs/react.development";
+import { UserContext } from "providers/UserProvider";
 
 const Home = () => {
   const [mediaList1, , compareState1] = useMediaList(2);
   const [mediaList2, , compareState2] = useMediaList(3);
   const [medialist3, , compareState3] = useMediaList(6);
+
+  const { fullName } = useContext(UserContext);
 
   const isAnyListLoading =
     compareState1(states.loading) || compareState3(states.loading);
@@ -29,7 +33,10 @@ const Home = () => {
 
   return (
     <HomeWrapper>
-      <AppbarWrapper>Welcome to our Homepage!</AppbarWrapper>
+      <AppbarWrapper>
+        <div>Better Video Player</div>
+        <div>Hello, {fullName}</div>
+      </AppbarWrapper>
       <SideNavWrapper>Sidebar</SideNavWrapper>
       <ScrollableListWrapper>
         <ListTitle>SELECTED FOR YOU</ListTitle>

@@ -28,7 +28,7 @@ const Splash = () => {
   useEffect(() => {
     updateState(actions.SET_LOADING);
     axios
-      .post(URL, { requestBody })
+      .post(URL, { ...requestBody })
       .then(
         ({
           data: {

@@ -12,14 +12,20 @@ export const HomeWrapper = styled.div`
 export const AppbarWrapper = styled.header`
   border-bottom: 1px solid ${({ theme }) => theme.colors.white};
 
+  padding: ${({ theme }) => theme.padding.x2};
+
   grid-column: span 2;
 
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
 
   font-size: ${({ theme }) => theme.fontSize.xxl};
   font-weight: 700;
+
+  div:first-child {
+    margin-left: 10vw;
+  }
 `;
 
 export const SideNavWrapper = styled.nav`
