@@ -3,8 +3,10 @@ import { useForm } from "react-hook-form";
 import FormField from "components/molecules/FormField/FormField";
 import { Button } from "components/atoms/Button/Button";
 
+import { ILoginData } from "hooks/useAuth";
+
 interface ILoginFormProps {
-  handleLogIn: () => void;
+  handleLogIn: (data: ILoginData) => void;
   shouldDisableSubmit: boolean;
 }
 

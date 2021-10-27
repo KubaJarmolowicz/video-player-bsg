@@ -1,11 +1,36 @@
-import React, { useState, useContext, useEffect } from "react";
-import axios from "axios";
-import { actions } from "assets/data/stateManagement";
+import React, { useState, useContext, useEffect, FC } from "react";
+import axios, { AxiosResponse } from "axios";
+import { Actions } from "assets/data/stateManagement";
 import { useStateMachine } from "./useStateMachine";
 import { TokenContext } from "providers/TokenProvider";
-import { BASE_URL, endpoints } from "assets/data/api";
+import { BASE_URL, Endpoints } from "assets/data/api";
+import { AllowedState } from "./useStateMachine";
 
-const URL = `${BASE_URL}${endpoints.authorization}`;
+const URL = `${BASE_URL}${Endpoints.AUTHORIZATION}`;
+
+export interface IBasicLoginRequest {
+  Device: {
+    Name: string;
+    PlatformCode: string;
+  };
+}
+
+export interface IBasicLoginResponse {
+  User: {
+    Id: string;
+    UserName: string;
+    FullName: string;
+
+    ClientRoles: string[];
+  };
+  AuthorizationToken: {
+    AuthResult: string;
+    Token: string;
+    TokenExpires: string;
+  };
+
+  ResultType: string;
+}
 
 const requestBody = {
   Device: {
@@ -17,10 +42,10 @@ const requestBody = {
 export const GuestLoginContext = React.createContext({
   shouldAllowAcces: false,
   shouldRedirectToLogin: false,
-  compareState: () => {},
+  compareState: (state: AllowedState) => (state ? true : false),
 });
 
-const GuestLoginProvider = ({ children }) => {
+const GuestLoginProvider: FC = ({ children }) => {
   const [shouldAllowAcces, setShouldAllowAcces] = useState(false);
   const [shouldRedirectToLogin, setShouldRedirectToLogin] = useState(false);
   const { setToken } = useContext(TokenContext);
@@ -28,22 +53,24 @@ const GuestLoginProvider = ({ children }) => {
   const { compareState, updateState } = useStateMachine();
 
   useEffect(() => {
-    updateState(actions.SET_LOADING);
+    updateState(Actions.SET_LOADING);
     axios
-      .post(URL, { ...requestBody })
+      .post<IBasicLoginRequest, AxiosResponse<IBasicLoginResponse>>(URL, {
+        ...requestBody,
+      })
       .then(
         ({
           data: {
             AuthorizationToken: { Token },
           },
         }) => {
-          updateState(actions.SET_SUCCESS);
+          updateState(Actions.SET_SUCCESS);
           setToken(Token);
           setShouldAllowAcces(true);
         }
       )
       .catch((e) => {
-        updateState(actions.SET_ERROR);
+        updateState(Actions.SET_ERROR);
         setTimeout(() => setShouldRedirectToLogin(true), 2000);
       });
   }, []);

@@ -3,7 +3,7 @@ import { useAuth } from "hooks/useAuth";
 import { Redirect } from "react-router";
 import LoginForm from "components/organisms/LoginForm/LoginForm";
 import { LoginViewWrapper, FormWrapper, GuestLoginBtn } from "./Login.styles";
-import { states } from "assets/data/stateManagement";
+import { States } from "assets/data/stateManagement";
 import Error from "components/molecules/Error/Error";
 
 const Login = () => {
@@ -18,18 +18,18 @@ const Login = () => {
           <h2>Better Video Player</h2>
           <LoginForm
             handleLogIn={handleLogIn}
-            shouldDisableSubmit={compareState(states.loading)}
+            shouldDisableSubmit={compareState(States.LOADING)}
           />
           <GuestLoginBtn
             to="/splash"
             style={{
-              pointerEvents: compareState(states.loading) ? "none" : "auto",
+              pointerEvents: compareState(States.LOADING) ? "none" : "auto",
             }}
           >
             Log In as Guest
           </GuestLoginBtn>
         </FormWrapper>
-        {compareState(states.error) && <Error messageType="login" />}
+        {compareState(States.ERROR) && <Error messageType="LOGIN" />}
       </LoginViewWrapper>
     );
   }

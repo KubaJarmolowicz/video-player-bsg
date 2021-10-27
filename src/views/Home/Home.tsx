@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useMediaList } from "hooks/useMediaList";
 import ScrollableMediaList from "components/organisms/ScrollableMediaList/ScrollableMediaList";
 import Error from "components/molecules/Error/Error";
@@ -11,8 +11,7 @@ import {
   FooterWrapper,
   ListTitle,
 } from "./Home.styles";
-import { states } from "assets/data/stateManagement";
-import { useContext } from "react/cjs/react.development";
+import { States } from "assets/data/stateManagement";
 import { UserContext } from "providers/UserProvider";
 
 const Home = () => {
@@ -23,13 +22,13 @@ const Home = () => {
   const { fullName } = useContext(UserContext);
 
   const isAnyListLoading =
-    compareState1(states.loading) || compareState3(states.loading);
+    compareState1(States.LOADING) || compareState3(States.LOADING);
 
   const didAnyListThrowError =
-    compareState1(states.error) || compareState3(states.error);
+    compareState1(States.ERROR) || compareState3(States.ERROR);
 
   const areBothListsFetched =
-    compareState1(states.success) && compareState3(states.success);
+    compareState1(States.SUCCESS) && compareState3(States.SUCCESS);
 
   return (
     <HomeWrapper>
@@ -41,19 +40,19 @@ const Home = () => {
       <ScrollableListWrapper>
         <ListTitle>SELECTED FOR YOU</ListTitle>
         {isAnyListLoading && <div style={{ height: 225 }}></div>}
-        {didAnyListThrowError && <Error messageType="list" />}
+        {didAnyListThrowError && <Error messageType="LIST" />}
         {areBothListsFetched && (
           <ScrollableMediaList
-            entities={[...mediaList1.Entities, ...medialist3.Entities]}
+            entities={[...mediaList1!.Entities, ...medialist3!.Entities]}
           />
         )}
       </ScrollableListWrapper>
       <ScrollableListWrapper>
         <ListTitle>TRENDING NOW</ListTitle>
-        {compareState2(states.loading) && <div style={{ height: 225 }}></div>}
-        {compareState2(states.error) && <Error messageType="list" />}
-        {compareState2(states.success) && (
-          <ScrollableMediaList entities={mediaList2.Entities} />
+        {compareState2(States.LOADING) && <div style={{ height: 225 }}></div>}
+        {compareState2(States.ERROR) && <Error messageType="LIST" />}
+        {compareState2(States.SUCCESS) && (
+          <ScrollableMediaList entities={mediaList2!.Entities} />
         )}
       </ScrollableListWrapper>
       <FooterWrapper>Footer</FooterWrapper>

@@ -7,16 +7,7 @@ import Loader from "components/atoms/Loader/Loader";
 import { LoaderCenteringContainer } from "components/atoms/Loader/Loader.styles";
 import { UserContext } from "providers/UserProvider";
 import Error from "components/molecules/Error/Error";
-
-interface IImage {
-  Id: number;
-  MediaId: number;
-  PlatformCode: string;
-  ImageTypeCode: string;
-  Url: string;
-  Width: number;
-  Height: number;
-}
+import { IImage } from "hooks/useMediaList";
 
 interface IMediaListProps {
   id: number;

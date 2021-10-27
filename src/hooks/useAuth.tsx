@@ -6,45 +6,26 @@ import { TokenContext } from "providers/TokenProvider";
 import { UserContext } from "providers/UserProvider";
 import { BASE_URL, Endpoints } from "assets/data/api";
 import { AllowedState } from "hooks/useStateMachine";
+import { IBasicLoginRequest, IBasicLoginResponse } from "hooks/useGuestLogin";
 
 interface IAuth {
-  shouldAllowAccess: boolean;
-  handleLogin: () => void;
+  shouldAllowAcces: boolean;
+  handleLogIn: (data: ILoginData) => void;
   compareState: (state: AllowedState) => boolean;
 }
 
-interface ILoginData {
+export interface ILoginData {
   Username: string;
   Password: string;
 }
 
-interface ILoginRequest extends ILoginData {
-  Device: {
-    Name: string;
-    PlatformCode: string;
-  };
-}
+type ILoginRequest = ILoginData & IBasicLoginRequest;
 
-interface ILoginResponse {
-  User: {
-    Id: string;
-    UserName: string;
-    FullName: string;
-
-    ClientRoles: string[];
-  };
-  AuthorizationToken: {
-    AuthResult: string;
-    Token: string;
-    TokenExpires: string;
-  };
-
-  ResultType: string;
-}
+type ILoginResponse = IBasicLoginResponse;
 
 const URL = `${BASE_URL}${Endpoints.AUTHORIZATION}`;
 
-export const AuthContext = React.createContext({
+export const AuthContext = React.createContext<IAuth>({
   shouldAllowAcces: false,
   handleLogIn: (data: ILoginData) => {
     return;

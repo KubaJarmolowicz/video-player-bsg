@@ -24,7 +24,7 @@ interface IPlayInfoResponse {
   ContentUrl: string;
 }
 
-const isUnauthorizedError = (e: AxiosError) =>
+export const isUnauthorizedError = (e: AxiosError) =>
   e.response?.status === 403 || e.response?.status === 401;
 
 const URL = `${BASE_URL}${Endpoints.PLAYINFO}`;

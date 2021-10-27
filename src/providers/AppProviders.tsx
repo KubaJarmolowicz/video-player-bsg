@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FC } from "react";
 import { BrowserRouter as Router } from "react-router-dom";
 import { ThemeProvider } from "styled-components";
 import { GlobalStyle } from "assets/styles/GlobalStyle";
@@ -8,7 +8,7 @@ import UserProvider from "providers/UserProvider";
 import AuthProvider from "hooks/useAuth";
 import GuestLoginProvider from "hooks/useGuestLogin";
 
-const AppProviders = ({ children }) => {
+const AppProviders: FC = ({ children }) => {
   return (
     <Router>
       <ThemeProvider theme={theme}>

@@ -2,7 +2,7 @@ import React from "react";
 import { Redirect } from "react-router";
 import { SplashWrapper } from "./Splash.styles";
 import Loader from "components/atoms/Loader/Loader";
-import { states } from "assets/data/stateManagement";
+import { States } from "assets/data/stateManagement";
 import Error from "components/molecules/Error/Error";
 import { useGuestLogin } from "hooks/useGuestLogin";
 
@@ -18,8 +18,8 @@ const Splash = () => {
     return (
       <SplashWrapper>
         <h2>BETTER VOD PLAYER</h2>
-        {compareState(states.loading) && <Loader />}
-        {compareState(states.error) && <Error messageType="redirect" />}
+        {compareState(States.LOADING) && <Loader />}
+        {compareState(States.ERROR) && <Error messageType="REDIRECT" />}
       </SplashWrapper>
     );
   }
