@@ -1,6 +1,10 @@
 import styled from "styled-components";
 
-export const Button = styled.button`
+interface IButton {
+  isBig: boolean;
+}
+
+export const Button = styled.button<IButton>`
   cursor: pointer;
   margin: 15px 0;
   padding: ${({ isBig }) => (isBig ? "10px 38px" : "7px 20px")};

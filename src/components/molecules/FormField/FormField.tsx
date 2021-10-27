@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
 import styled from "styled-components";
 import { Label } from "components/atoms/Label/Label";
 import { Input } from "components/atoms/Input/Input";
@@ -13,8 +12,28 @@ const Wrapper = styled.div`
   }
 `;
 
+interface IFormFieldProps {
+  onChange: React.FormEventHandler<HTMLInputElement>;
+  label: string;
+  name: string;
+  id: string;
+  placeholder?: string;
+  type?: string;
+}
+
 const FormField = React.forwardRef(
-  ({ onChange, value, label, name, id, type = "text", ...props }, ref) => {
+  (
+    {
+      onChange,
+      type = "text",
+      label,
+      name,
+      id,
+
+      ...props
+    }: IFormFieldProps,
+    ref: React.ForwardedRef<HTMLInputElement>
+  ) => {
     return (
       <Wrapper>
         <Label htmlFor={id}>{label}</Label>
@@ -22,7 +41,6 @@ const FormField = React.forwardRef(
           name={name}
           id={id}
           type={type}
-          value={value}
           onChange={onChange}
           data-testid={label}
           {...props}
@@ -32,12 +50,5 @@ const FormField = React.forwardRef(
     );
   }
 );
-
-FormField.propTypes = {
-  label: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
-  id: PropTypes.string.isRequired,
-  type: PropTypes.string,
-};
 
 export default FormField;

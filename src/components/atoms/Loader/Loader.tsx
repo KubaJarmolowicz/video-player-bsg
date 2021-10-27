@@ -1,7 +1,7 @@
-import React from "react";
+import React, { FC } from "react";
 import { StyledLoader } from "./Loader.styles";
 
-const Loader = () => {
+const Loader: FC = () => {
   return (
     <StyledLoader>
       <div></div>

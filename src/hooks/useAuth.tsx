@@ -1,21 +1,59 @@
-import React, { useState, useContext, useCallback } from "react";
-import axios from "axios";
-import { actions } from "assets/data/stateManagement";
+import React, { useState, useContext, useCallback, FC } from "react";
+import axios, { AxiosResponse } from "axios";
+import { Actions } from "assets/data/stateManagement";
 import { useStateMachine } from "./useStateMachine";
 import { TokenContext } from "providers/TokenProvider";
 import { UserContext } from "providers/UserProvider";
-import { BASE_URL, endpoints } from "assets/data/api";
+import { BASE_URL, Endpoints } from "assets/data/api";
+import { AllowedState } from "hooks/useStateMachine";
 
-const URL = `${BASE_URL}${endpoints.authorization}`;
+interface IAuth {
+  shouldAllowAccess: boolean;
+  handleLogin: () => void;
+  compareState: (state: AllowedState) => boolean;
+}
+
+interface ILoginData {
+  Username: string;
+  Password: string;
+}
+
+interface ILoginRequest extends ILoginData {
+  Device: {
+    Name: string;
+    PlatformCode: string;
+  };
+}
+
+interface ILoginResponse {
+  User: {
+    Id: string;
+    UserName: string;
+    FullName: string;
+
+    ClientRoles: string[];
+  };
+  AuthorizationToken: {
+    AuthResult: string;
+    Token: string;
+    TokenExpires: string;
+  };
+
+  ResultType: string;
+}
+
+const URL = `${BASE_URL}${Endpoints.AUTHORIZATION}`;
 
 export const AuthContext = React.createContext({
   shouldAllowAcces: false,
-  handleLogIn: () => {},
-  compareState: () => {},
+  handleLogIn: (data: ILoginData) => {
+    return;
+  },
+  compareState: (state: AllowedState) => (state ? true : false),
 });
 
-const AuthProvider = ({ children }) => {
-  const [shouldAllowAcces, setShouldAllowAcces] = useState(false);
+const AuthProvider: FC = ({ children }) => {
+  const [shouldAllowAcces, setShouldAllowAcces] = useState<boolean>(false);
 
   const { compareState, updateState } = useStateMachine();
 
@@ -32,9 +70,11 @@ const AuthProvider = ({ children }) => {
       },
     };
 
-    updateState(actions.SET_LOADING);
+    updateState(Actions.SET_LOADING);
     axios
-      .post(URL, { ...requestBody })
+      .post<ILoginRequest, AxiosResponse<ILoginResponse>>(URL, {
+        ...requestBody,
+      })
       .then(
         ({
           data: {
@@ -49,8 +89,8 @@ const AuthProvider = ({ children }) => {
         }
       )
       .catch((e) => {
-        updateState(actions.SET_ERROR);
-        setTimeout(() => updateState(actions.SET_IDLE), 10000);
+        updateState(Actions.SET_ERROR);
+        setTimeout(() => updateState(Actions.SET_IDLE), 10000);
       });
   }, []);
 

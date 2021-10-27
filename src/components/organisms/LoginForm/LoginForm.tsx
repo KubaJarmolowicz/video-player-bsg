@@ -1,9 +1,17 @@
-import React from "react";
+import React, { FC } from "react";
 import { useForm } from "react-hook-form";
 import FormField from "components/molecules/FormField/FormField";
 import { Button } from "components/atoms/Button/Button";
 
-const LoginForm = ({ handleLogIn, shouldDisableSubmit }) => {
+interface ILoginFormProps {
+  handleLogIn: () => void;
+  shouldDisableSubmit: boolean;
+}
+
+const LoginForm: FC<ILoginFormProps> = ({
+  handleLogIn,
+  shouldDisableSubmit,
+}) => {
   const {
     register,
     handleSubmit,
@@ -22,7 +30,6 @@ const LoginForm = ({ handleLogIn, shouldDisableSubmit }) => {
     >
       <FormField
         label="username"
-        name="username"
         id="username"
         placeholder="Username"
         {...register("username", { required: true })}
@@ -30,7 +37,6 @@ const LoginForm = ({ handleLogIn, shouldDisableSubmit }) => {
       {errors.username && <span>Username is required</span>}
       <FormField
         label="password"
-        name="password"
         id="password"
         placeholder="Password"
         type="password"
