@@ -1,54 +1,18 @@
-import React, { useState, useEffect, useContext } from "react";
-import { useStateMachine } from "hooks/useStateMachine";
+import React from "react";
 import { Redirect } from "react-router";
 import { SplashWrapper } from "./Splash.styles";
-import axios from "axios";
-import { TokenContext } from "providers/TokenProvider";
 import Loader from "components/atoms/Loader/Loader";
-import { states, actions } from "assets/data/stateManagement";
+import { states } from "assets/data/stateManagement";
 import Error from "components/molecules/Error/Error";
-import { BASE_URL, endpoints } from "assets/data/api";
-
-const URL = `${BASE_URL}${endpoints.authorization}`;
-
-const requestBody = {
-  Device: {
-    Name: "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
-    PlatformCode: "WEB",
-  },
-};
+import { useGuestLogin } from "hooks/useGuestLogin";
 
 const Splash = () => {
-  const [redirectToHome, setRedirectToHome] = useState(null);
-  const [redirectToLogin, setRedirectToLogin] = useState(false);
-  const { setToken } = useContext(TokenContext);
+  const { shouldAllowAcces, shouldRedirectToLogin, compareState } =
+    useGuestLogin();
 
-  const { compareState, updateState } = useStateMachine();
-
-  useEffect(() => {
-    updateState(actions.SET_LOADING);
-    axios
-      .post(URL, { ...requestBody })
-      .then(
-        ({
-          data: {
-            AuthorizationToken: { Token },
-          },
-        }) => {
-          updateState(actions.SET_SUCCESS);
-          setToken(Token);
-          setRedirectToHome(true);
-        }
-      )
-      .catch((e) => {
-        updateState(actions.SET_ERROR);
-        setTimeout(() => setRedirectToLogin(true), 2000);
-      });
-  }, []);
-
-  if (redirectToHome) {
+  if (shouldAllowAcces) {
     return <Redirect to="/home" />;
-  } else if (redirectToLogin) {
+  } else if (shouldRedirectToLogin) {
     return <Redirect to="/" exact />;
   } else {
     return (

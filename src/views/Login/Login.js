@@ -1,57 +1,15 @@
-import React, { useContext, useState } from "react";
-import { useStateMachine } from "hooks/useStateMachine";
+import React from "react";
+import { useAuth } from "hooks/useAuth";
 import { Redirect } from "react-router";
-import { TokenContext } from "providers/TokenProvider";
-import axios from "axios";
-import { UserContext } from "providers/UserProvider";
 import LoginForm from "components/organisms/LoginForm/LoginForm";
 import { LoginViewWrapper, FormWrapper, GuestLoginBtn } from "./Login.styles";
-import { states, actions } from "assets/data/stateManagement";
+import { states } from "assets/data/stateManagement";
 import Error from "components/molecules/Error/Error";
-import { BASE_URL, endpoints } from "assets/data/api";
-
-const URL = `${BASE_URL}${endpoints.authorization}`;
 
 const Login = () => {
-  const [redirect, setRedirect] = useState(null);
-  const { compareState, updateState } = useStateMachine();
+  const { shouldAllowAcces, handleLogIn, compareState } = useAuth();
 
-  const { setToken } = useContext(TokenContext);
-  const { setIsRegistered, setFullname } = useContext(UserContext);
-
-  const handleLogIn = (data) => {
-    const requestBody = {
-      Username: data.username,
-      Password: data.password,
-      Device: {
-        Name: "7a6a86e5-356f-4795-8998-305e1b205531",
-        PlatformCode: "WEB",
-      },
-    };
-
-    updateState(actions.SET_LOADING);
-    axios
-      .post(URL, { ...requestBody })
-      .then(
-        ({
-          data: {
-            AuthorizationToken: { Token },
-            User: { FullName },
-          },
-        }) => {
-          setToken(Token);
-          setFullname(FullName);
-          setIsRegistered(true);
-          setRedirect(true);
-        }
-      )
-      .catch((e) => {
-        updateState(actions.SET_ERROR);
-        setTimeout(() => updateState(actions.SET_IDLE), 10000);
-      });
-  };
-
-  if (redirect) {
+  if (shouldAllowAcces) {
     return <Redirect to="/home" />;
   } else {
     return (

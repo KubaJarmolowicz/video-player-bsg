@@ -2,10 +2,13 @@ import React from "react";
 import "assets/fonts/fonts.css";
 import ReactDOM from "react-dom";
 import Root from "./views/Root";
+import AppProviders from "providers/AppProviders";
 
 ReactDOM.render(
   <React.StrictMode>
-    <Root />
+    <AppProviders>
+      <Root />
+    </AppProviders>
   </React.StrictMode>,
   document.getElementById("root")
 );
