@@ -1,9 +1,13 @@
-import React from "react";
-import PropTypes from "prop-types";
+import { FC } from "react";
 import ReactPlayer from "react-player";
 import { FixedRatioWrapper } from "./ResponsivePlayer.styles";
 
-const ResponsivePlayer = ({ light, url }) => {
+interface IResponsivePlayerProps {
+  light: string;
+  url: string;
+}
+
+const ResponsivePlayer: FC<IResponsivePlayerProps> = ({ light, url }) => {
   return (
     <FixedRatioWrapper>
       <ReactPlayer
@@ -21,11 +25,6 @@ const ResponsivePlayer = ({ light, url }) => {
       />
     </FixedRatioWrapper>
   );
-};
-
-ResponsivePlayer.propTypes = {
-  light: PropTypes.string,
-  url: PropTypes.string,
 };
 
 export default ResponsivePlayer;
