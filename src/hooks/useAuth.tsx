@@ -5,13 +5,13 @@ import { useStateMachine } from "./useStateMachine";
 import { TokenContext } from "providers/TokenProvider";
 import { UserContext } from "providers/UserProvider";
 import { BASE_URL, Endpoints } from "assets/data/api";
-import { AllowedState } from "hooks/useStateMachine";
+import { State } from "assets/data/stateManagement";
 import { IBasicLoginRequest, IBasicLoginResponse } from "hooks/useGuestLogin";
 
 interface IAuth {
   shouldAllowAcces: boolean;
   handleLogIn: (data: ILoginData) => void;
-  compareState: (state: AllowedState) => boolean;
+  compareState: (state: State) => boolean;
 }
 
 export interface ILoginData {
@@ -30,7 +30,7 @@ export const AuthContext = React.createContext<IAuth>({
   handleLogIn: (data: ILoginData) => {
     return;
   },
-  compareState: (state: AllowedState) => (state ? true : false),
+  compareState: (state: State) => (state ? true : false),
 });
 
 const AuthProvider: FC = ({ children }) => {

@@ -4,7 +4,7 @@ import { Actions } from "assets/data/stateManagement";
 import { useStateMachine } from "./useStateMachine";
 import { TokenContext } from "providers/TokenProvider";
 import { BASE_URL, Endpoints } from "assets/data/api";
-import { AllowedState } from "./useStateMachine";
+import { State } from "assets/data/stateManagement";
 
 const URL = `${BASE_URL}${Endpoints.AUTHORIZATION}`;
 
@@ -42,7 +42,7 @@ const requestBody = {
 export const GuestLoginContext = React.createContext({
   shouldAllowAcces: false,
   shouldRedirectToLogin: false,
-  compareState: (state: AllowedState) => (state ? true : false),
+  compareState: (state: State) => (state ? true : false),
 });
 
 const GuestLoginProvider: FC = ({ children }) => {

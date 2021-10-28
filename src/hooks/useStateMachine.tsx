@@ -1,36 +1,29 @@
 import { useState } from "react";
-import { States, Actions, transitions } from "assets/data/stateManagement";
-
-export type AllowedState = keyof typeof States;
-type AllowedAction = keyof typeof Actions;
+import {
+  State,
+  Action,
+  States,
+  transitions,
+} from "assets/data/stateManagement";
 
 export const useStateMachine = () => {
-  const [currentState, setCurrentState] = useState<AllowedState>(States.IDLE);
+  const [currentState, setCurrentState] = useState<State>(States.IDLE);
 
-  const transition = (
-    currentState: AllowedState,
-    action: AllowedAction = "SET_LOADING"
-  ) => {
-    const allowedTransitions = Object.keys(transitions[currentState]);
+  const transition = (currentState: State, requestedAction: Action) => {
+    const nextState: State =
+      transitions.find(
+        ({ from, action }) =>
+          from === currentState && action === requestedAction
+      )?.to || currentState;
 
-    if (action in allowedTransitions) {
-      const nextState: AllowedState = allowedTransitions[
-        allowedTransitions.indexOf(action)
-      ] as AllowedState;
-
-      return nextState;
-    }
-
-    return currentState;
+    return nextState;
   };
 
-  const updateState = (action: AllowedAction) => {
-    setCurrentState((currentState: AllowedState) =>
-      transition(currentState, action)
-    );
+  const updateState = (action: Action) => {
+    setCurrentState((currentState: State) => transition(currentState, action));
   };
 
-  const compareState = (state: AllowedState) => state === currentState;
+  const compareState = (state: State) => state === currentState;
 
   return { updateState, compareState } as const;
 };
