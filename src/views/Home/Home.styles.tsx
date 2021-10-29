@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import "assets/fonts/fonts.css";
+import { NavLink } from "react-router-dom";
 
 export const HomeWrapper = styled.div`
   min-height: 100vh;
@@ -35,11 +36,22 @@ export const SideNavWrapper = styled.nav`
   grid-row: span 3;
 
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  justify-content: space-evenly;
   align-items: center;
 
   font-size: ${({ theme }) => theme.fontSize.l};
   font-weight: 700;
+`;
+
+export const StyledLink = styled(NavLink)`
+  color: currentColor;
+  text-decoration: none;
+
+  &:active,
+  &:visited {
+    text-decoration: none;
+  }
 `;
 
 export const ScrollableListWrapper = styled.section`

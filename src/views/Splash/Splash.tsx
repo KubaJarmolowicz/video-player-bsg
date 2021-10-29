@@ -1,16 +1,22 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import { Redirect } from "react-router";
 import { SplashWrapper } from "./Splash.styles";
 import Loader from "components/atoms/Loader/Loader";
 import { States } from "assets/data/stateManagement";
 import Error from "components/molecules/Error/Error";
 import { useGuestLogin } from "hooks/useGuestLogin";
+import { TokenContext } from "providers/TokenProvider";
 
 const Splash = () => {
-  const { shouldAllowAcces, shouldRedirectToLogin, compareState } =
+  const { shouldRedirectToLogin, compareState, handleGuestLogin } =
     useGuestLogin();
+  const { shouldAllowAccess } = useContext(TokenContext);
 
-  if (shouldAllowAcces) {
+  useEffect(() => {
+    handleGuestLogin();
+  }, []);
+
+  if (shouldAllowAccess) {
     return <Redirect to="/home" />;
   } else if (shouldRedirectToLogin) {
     return <Redirect to="/" exact />;

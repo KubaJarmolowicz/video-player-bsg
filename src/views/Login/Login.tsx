@@ -1,16 +1,18 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useAuth } from "hooks/useAuth";
 import { Redirect } from "react-router";
 import LoginForm from "components/organisms/LoginForm/LoginForm";
 import { LoginViewWrapper, FormWrapper, GuestLoginBtn } from "./Login.styles";
 import { States } from "assets/data/stateManagement";
 import Error from "components/molecules/Error/Error";
+import { TokenContext } from "providers/TokenProvider";
 
 const Login = () => {
-  const { shouldAllowAcces, handleLogIn, compareState } = useAuth();
+  const { handleLogIn, compareState } = useAuth();
+  const { shouldAllowAccess } = useContext(TokenContext);
 
-  if (shouldAllowAcces) {
-    return <Redirect to="/home" />;
+  if (shouldAllowAccess) {
+    return <Redirect to="/splash" />;
   } else {
     return (
       <LoginViewWrapper>

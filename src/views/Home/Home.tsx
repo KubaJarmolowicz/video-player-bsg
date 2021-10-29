@@ -1,5 +1,6 @@
-import React, { useContext } from "react";
+import { useContext } from "react";
 import { useMediaList } from "hooks/useMediaList";
+import { useAuth } from "hooks/useAuth";
 import ScrollableMediaList from "components/organisms/ScrollableMediaList/ScrollableMediaList";
 import Error from "components/molecules/Error/Error";
 
@@ -10,16 +11,21 @@ import {
   ScrollableListWrapper,
   FooterWrapper,
   ListTitle,
+  StyledLink,
 } from "./Home.styles";
 import { States } from "assets/data/stateManagement";
 import { UserContext } from "providers/UserProvider";
+import { Redirect } from "react-router";
+import { TokenContext } from "providers/TokenProvider";
 
 const Home = () => {
   const [mediaList1, , compareState1] = useMediaList(2);
   const [mediaList2, , compareState2] = useMediaList(3);
   const [medialist3, , compareState3] = useMediaList(6);
 
+  const { shouldAllowAccess } = useContext(TokenContext);
   const { fullName } = useContext(UserContext);
+  const { handleLogOut } = useAuth();
 
   const isAnyListLoading =
     compareState1(States.LOADING) || compareState3(States.LOADING);
@@ -30,13 +36,19 @@ const Home = () => {
   const areBothListsFetched =
     compareState1(States.SUCCESS) && compareState3(States.SUCCESS);
 
+  if (!shouldAllowAccess) return <Redirect to="/" exact />;
+
   return (
     <HomeWrapper>
       <AppbarWrapper>
         <div>Better Video Player</div>
         <div>Hello, {fullName}</div>
       </AppbarWrapper>
-      <SideNavWrapper>Sidebar</SideNavWrapper>
+      <SideNavWrapper>
+        <StyledLink to="" onClick={handleLogOut}>
+          Logout
+        </StyledLink>
+      </SideNavWrapper>
       <ScrollableListWrapper>
         <ListTitle>SELECTED FOR YOU</ListTitle>
         {isAnyListLoading && <div style={{ height: 225 }}></div>}

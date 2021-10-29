@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect, FC } from "react";
+import React, { useState, useContext, useEffect, FC, useCallback } from "react";
 import axios, { AxiosResponse } from "axios";
 import { Actions } from "assets/data/stateManagement";
 import { useStateMachine } from "./useStateMachine";
@@ -40,19 +40,20 @@ const requestBody = {
 };
 
 export const GuestLoginContext = React.createContext({
-  shouldAllowAcces: false,
   shouldRedirectToLogin: false,
   compareState: (state: State) => (state ? true : false),
+  handleGuestLogin: () => {
+    return;
+  },
 });
 
 const GuestLoginProvider: FC = ({ children }) => {
-  const [shouldAllowAcces, setShouldAllowAcces] = useState(false);
   const [shouldRedirectToLogin, setShouldRedirectToLogin] = useState(false);
-  const { setToken } = useContext(TokenContext);
+  const { setToken, setShouldAllowAccess } = useContext(TokenContext);
 
   const { compareState, updateState } = useStateMachine();
 
-  useEffect(() => {
+  const handleGuestLogin = useCallback(() => {
     updateState(Actions.SET_LOADING);
     axios
       .post<IBasicLoginRequest, AxiosResponse<IBasicLoginResponse>>(URL, {
@@ -66,7 +67,8 @@ const GuestLoginProvider: FC = ({ children }) => {
         }) => {
           updateState(Actions.SET_SUCCESS);
           setToken(Token);
-          setShouldAllowAcces(true);
+          setShouldAllowAccess(true);
+          updateState(Actions.SET_IDLE);
         }
       )
       .catch((e) => {
@@ -77,7 +79,7 @@ const GuestLoginProvider: FC = ({ children }) => {
 
   return (
     <GuestLoginContext.Provider
-      value={{ shouldAllowAcces, shouldRedirectToLogin, compareState }}
+      value={{ shouldRedirectToLogin, compareState, handleGuestLogin }}
     >
       {children}
     </GuestLoginContext.Provider>

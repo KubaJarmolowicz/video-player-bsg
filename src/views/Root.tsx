@@ -14,9 +14,9 @@ const Root: FC = () => {
       <Route path="/splash">
         <Splash />
       </Route>
-      <PrivateRoute path="/home">
+      <Route path="/home">
         <Home />
-      </PrivateRoute>
+      </Route>
     </Switch>
   );
 };
