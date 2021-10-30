@@ -45,7 +45,7 @@ const Home = () => {
         <div>Hello, {fullName}</div>
       </AppbarWrapper>
       <SideNavWrapper>
-        <StyledLink to="" onClick={handleLogOut}>
+        <StyledLink to="/" onClick={handleLogOut}>
           Logout
         </StyledLink>
       </SideNavWrapper>

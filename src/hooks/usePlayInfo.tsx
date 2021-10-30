@@ -46,6 +46,9 @@ export const usePlayInfo = ({
   >(undefined);
   const [contentURL, setContentURL] = useState<string>("");
 
+  const CancelToken = axios.CancelToken;
+  const source = CancelToken.source();
+
   useEffect(() => {
     updateState(Actions.SET_LOADING);
     axios
@@ -57,6 +60,7 @@ export const usePlayInfo = ({
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
           },
+          cancelToken: source.token,
         }
       )
       .then(({ data }) => {
@@ -67,6 +71,11 @@ export const usePlayInfo = ({
         updateState(Actions.SET_ERROR);
         setErrorInfo(isUnauthorizedError(e) ? "UNAUTHORIZED" : "DEFAULT");
       });
+
+    return () => {
+      updateState(Actions.SET_IDLE);
+      source.cancel("Playinfo request cancelled.");
+    };
   }, []);
 
   return { errorInfo, contentURL, compareState } as const;

@@ -1,6 +1,6 @@
 import { useState, useEffect, useContext } from "react";
 import { useStateMachine } from "./useStateMachine";
-import { Actions } from "assets/data/stateManagement";
+import { Actions, States } from "assets/data/stateManagement";
 import axios, { AxiosResponse } from "axios";
 import { TokenContext } from "providers/TokenProvider";
 import { BASE_URL, Endpoints } from "assets/data/api";
@@ -71,6 +71,9 @@ export const useMediaList = (MediaListId = 3) => {
     IncludeImages: true,
   };
 
+  const CancelToken = axios.CancelToken;
+  const source = CancelToken.source();
+
   useEffect(() => {
     updateState(Actions.SET_LOADING);
     axios
@@ -82,6 +85,7 @@ export const useMediaList = (MediaListId = 3) => {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
           },
+          cancelToken: source.token,
         }
       )
       .then(({ data }) => {
@@ -92,6 +96,11 @@ export const useMediaList = (MediaListId = 3) => {
         setErrorInfo(isUnauthorizedError(e) ? "UNAUTHORIZED" : "DEFAULT");
         updateState(Actions.SET_ERROR);
       });
+
+    return () => {
+      updateState(Actions.SET_IDLE);
+      source.cancel("MediaList request cancelled.");
+    };
   }, []);
 
   return [mediaList, errorInfo, compareState] as const;

@@ -67,6 +67,7 @@ const AuthProvider: FC = ({ children }) => {
           setFullname(FullName);
           setIsRegistered(true);
           setShouldAllowAccess(true);
+          updateState(Actions.SET_IDLE);
         }
       )
       .catch((e) => {

@@ -13,7 +13,9 @@ const Splash = () => {
   const { shouldAllowAccess } = useContext(TokenContext);
 
   useEffect(() => {
-    handleGuestLogin();
+    if (!shouldAllowAccess) {
+      handleGuestLogin();
+    }
   }, []);
 
   if (shouldAllowAccess) {
